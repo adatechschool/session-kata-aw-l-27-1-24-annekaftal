@@ -1,7 +1,21 @@
+class Joueur {
+  constructor() {
+    this.score = 0;
+  }
+  getScore() {
+    return this.score;
+  }
+  incrementScore() {
+    this.score += 1;
+  }
+}
+
 class Plateau {
   constructor() {
     this.nord = { A: 0, B: 0, C: 0, D: 0, E: 0, F: 0 };
     this.sud = { G: 0, H: 0, I: 0, J: 0, K: 0, L: 0 };
+    this.joueurNord = new Joueur();
+    this.joueurSud = new Joueur();
   }
 
   display() {
@@ -35,8 +49,17 @@ class Plateau {
     console.log("true");
     return true;
   }
+
+  incrementCheck() {
+    console.log("new score " + this.joueurNord.getScore());
+    this.joueurNord.incrementScore();
+    console.log("new score " + this.joueurNord.getScore());
+    this.joueurNord.incrementScore();
+    console.log("new score " + this.joueurNord.getScore());
+  }
 }
 
 const plateau = new Plateau();
 plateau.display();
 plateau.isEmpty();
+plateau.incrementCheck();
