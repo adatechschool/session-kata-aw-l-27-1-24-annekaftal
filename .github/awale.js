@@ -12,10 +12,11 @@ class Joueur {
 
 class Plateau {
   constructor() {
-    this.nord = { A: 0, B: 0, C: 0, D: 0, E: 0, F: 0 };
-    this.sud = { G: 0, H: 0, I: 0, J: 0, K: 0, L: 0 };
+    this.nord = { A: 4, B: 4, C: 4, D: 4, E: 4, F: 4 };
+    this.sud = { G: 4, H: 4, I: 4, J: 4, K: 4, L: 4 };
     this.joueurNord = new Joueur();
     this.joueurSud = new Joueur();
+    this.prochainJoueur = this.joueurNord;
   }
 
   display() {
@@ -50,16 +51,50 @@ class Plateau {
     return true;
   }
 
-  incrementCheck() {
-    console.log("new score " + this.joueurNord.getScore());
-    this.joueurNord.incrementScore();
-    console.log("new score " + this.joueurNord.getScore());
-    this.joueurNord.incrementScore();
-    console.log("new score " + this.joueurNord.getScore());
+  saw(trou) {
+    if (this.prochainJoueur === this.joueurNord) {
+      console.log("Le joueur Nord doit jouer");
+      if (Object.keys(this.nord).includes(trou)) {
+        console.log("Début du tour");
+        let graines = this.nord[trou];
+        let i = 0;
+        while (graines > i) {
+          graines -= 1;
+          //   console.log(trou.charCodeAt(0));
+          //   console.log(this.nord[String.fromCharCode(67)]);
+        }
+      } else {
+        console.log(
+          "Vous devez commencer dans l'un des trous de votre territoire !"
+        );
+      }
+      this.prochainJoueur = this.joueurSud;
+    } else {
+      console.log("Le joueur Sud doit jouer");
+      if (Object.keys(this.sud).includes(trou)) {
+        console.log("Début du tour");
+      } else {
+        console.log(
+          "Vous devez commencer dans l'un des trous de votre territoire !"
+        );
+      }
+      this.prochainJoueur = this.joueurNord;
+    }
   }
+
+  //   incrementCheck() {
+  //     console.log("new score " + this.joueurNord.getScore());
+  //     this.joueurNord.incrementScore();
+  //     console.log("new score " + this.joueurNord.getScore());
+  //     this.joueurNord.incrementScore();
+  //     console.log("new score " + this.joueurNord.getScore());
+  //   }
 }
 
 const plateau = new Plateau();
 plateau.display();
 plateau.isEmpty();
-plateau.incrementCheck();
+plateau.saw("C");
+plateau.saw("C");
+
+// plateau.incrementCheck();
